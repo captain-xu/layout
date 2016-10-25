@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>REVA</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+        if (top.location !== self.location) {
+        top.location.href = "/login";
+    }
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="loginstyle.css">
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="wrapper pos-relative" id="first-part-wrapper">
+        <div class="content pos-relative align-center p-t-140 p-b-140" id="top">
+            <div class="hideMe particles pos-absolute t-1p l-1p width-98 height-98 in" data-dur=".5" id="particles-top" style="transition-duration: 0.5s;"><canvas class="particles-js-canvas-el" width="1254" height="768" style="width: 100%; height: 100%;"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="loginbox">
+        <div class="logo">
+
+        </div>
+        <form id="loginform">
+            <div class="input">
+                <input type="text" placeholder="Username" id="username">
+                <input type="password" placeholder="Password" id="password">
+            </div>
+            <p id="error-message" class="warn clear"></p>
+            <div class="btn clear">
+                <input type="button" value=" Sign in" id="signin" onclick="login();">
+                <button id="animate"><img src="loding.gif" alt=""></button>
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        <p>Copyright © 2015-2016. All rights reserved.</p>
+    </div>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="particles.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        checkLoginUser();
+    });
+    $(".input input").focus(function(event) {
+        $(this).animate({width: '360px'}, 200)
+    }).blur(function(event) {
+        $(this).animate({width: '318px'}, 200)
+    });
+    function checkLoginUser(){
+        $.ajax({
+            type: "post",
+            url: "/admin/admin/getLoginUser",
+            success: function(result) {
+                if (result.status == 0 && result.code == 0) {
+                    var authId = result.data.authId;
+                    $.ajax({
+                        url: "/da/server/login",
+                        data: JSON.stringify({
+                            "authId": authId
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        type: "post",
+                        success: function(result) {
+                            if (result.status == 0 && result.code == 0) {  
+                                location.href = '../#/view/tableau/dashboard';
+                            } else {
+                                $(".logo").animate(
+                                    {top: "0px"},
+                                    1000, 
+                                    function() {
+                                        $("#loginform").fadeIn(100);
+                                    }
+                                );
+                            }
+                        }
+                    })
+                } else {
+                    $(".logo").animate(
+                        {top: "0px"},
+                        1000, 
+                        function() {
+                            $("#loginform").fadeIn(100);
+                        }
+                    );
+                };
+            },
+            error: function(result) {
+                    $(".logo").animate(
+                        {top: "0px"},
+                        1000, 
+                        function() {
+                            $("#loginform").fadeIn(100);
+                        }
+                    );
+            }
+        });
+    };
+    function login() {
+        if ($('#username').val().trim() == "") {
+            $('#error-message').text('UserName is required');
+        } else if ($('#password').val().trim() == "") {
+            $('#error-message').text('Password is required');
+        };
+        $("#signin").hide();
+        $("#animate").show();
+        $.ajax({
+            url: "/auth/server/login",
+            data: JSON.stringify({
+                "userName": $('#username').val(),
+                "password": $('#password').val()
+            }),
+            contentType: "application/json; charset=utf-8",
+            type: "post",
+            success: function(result) {
+                if (result.status == 0 && result.code == 0) {
+                    var authId = result.data.authId;
+                    $.ajax({
+                        url: "/admin/server/login",
+                        data: JSON.stringify({
+                            "authId": authId
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        type: "post",
+                        success: function(result) {
+                            if (result.status == 0 && result.code == 0) {
+                                $.ajax({
+                                    url: "/da/server/login",
+                                    data: JSON.stringify({
+                                        "authId": authId
+                                    }),
+                                    contentType: "application/json; charset=utf-8",
+                                    type: "post",
+                                    success: function(result) {
+                                        if (result.status == 0 && result.code == 0) {
+                                            $("#loginform").fadeOut(100, function() {
+                                                $(".logo").animate({
+                                                    top: "150px"},
+                                                    1000, 
+                                                    function() {
+                                                        setTimeout("location.href = '../#/view/tableau/dashboard'",500)
+                                                        $("body").fadeOut('500');
+                                                    });
+                                                 });
+                                        } else {
+                                            $("#signin").show();
+                                            $("#animate").hide();
+                                            $('#error-message').text(result.msg);
+                                        }
+                                    }
+                                })
+                            } else {
+                                $("#signin").show();
+                                $("#animate").hide();
+                                $('#error-message').text(result.msg);
+                            }
+                        }
+                    })
+                } else {
+                    $("#signin").show();
+                    $("#animate").hide();
+                    $('#error-message').text(result.msg);
+                }
+            }
+        })
+    };
+    $("body").on('keydown', function(event) {
+        if (event.keyCode == 13) {
+            $("#signin").focus();
+            //login();
+        }
+    });
+    </script>
+</body>
+
+</html>

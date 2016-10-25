@@ -1,0 +1,123 @@
+html,body{
+	height: 100%;
+	position: relative;
+    background: linear-gradient(#2B406D, #4E5F84);
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#2B406D, endColorStr=#4E5F84);
+    overflow: hidden;
+}
+#loginform{display: none;}
+.container{
+	position: absolute;
+	width: 600px;height: 396px;
+	left: 50%;top: 50%;
+	margin-left: -300px;
+	margin-top: -196px;
+	z-index: 1;
+}
+
+.logo{
+	display: block;
+	margin: 0 auto;
+	position: relative;
+  text-align: center;
+  top: 150px;
+}
+.input{
+	width: 100%;
+	margin: 0 auto;
+	position: relative;
+	margin-top: 60px;
+	text-align: center;
+}
+.input input{
+	width: 318px;
+	height: 36px;
+	display: inline-block;
+	margin-top: 30px;
+	padding:0 20px;
+	border: 1px solid rgba(255,255,255,.33);
+	border-radius:3px;
+  	background-color:rgba(0,0,0,.22);
+	font-size: 14px;
+	color: #fff;
+	outline:none;
+}
+input:-webkit-autofill {-webkit-box-shadow: 0 0 0px 1000px rgba(255,255,255,.33) inset;}
+input:focus{border: 1px solid rgba(255,255,255,.33);background:rgba(0,0,0,.33)}
+/*设置输入框透明效果
+::-webkit-input-placeholder {
+	color:  #eee;
+}
+:-moz-placeholder {
+	color:  #eee;
+}
+::-moz-placeholder {
+	color:  #eee;
+}*/
+:-ms-input-placeholder {
+	color:  #A3A8AD !important;
+}
+.warn{width: 100%;color:#fff;height:74px;line-height:74px;text-align: center;}
+
+.btn{text-align:center;position: relative;}
+.btn input,
+button{
+	display: inline-block;
+	width: 360px;
+	height: 48px;
+	border-radius: 2px;
+	color: #2B406D;
+	background: #fff;
+	font-weight: 700;
+	cursor: pointer;
+}
+#animate{
+	display: none;
+}
+.btn img{
+	width: 38px;
+	height: 38px;
+}
+.btn input:hover{
+	background:#E7E7E7;
+}
+
+.footer{position: absolute;bottom: 18px;color: #fff;width: 100%;font-size: 12px;text-align: center;}
+.footer a{color: #fff;}
+.footer p{color:rgba(255, 255, 255, 0.67);}
+
+
+
+.wrapper .content {
+    width: 100%;
+    margin: 0 auto;
+}.p-b-140 {
+    padding-bottom: 140px;
+}.p-t-140 {
+    padding-top: 140px;
+}.pos-relative {
+    position: relative;
+    height: 100%;
+}.align-center {
+    text-align: center;
+}.hideMe.in {
+    opacity: 1;
+    height: 100%;
+}.hideMe {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    opacity: 0;
+}.l-1p {
+    left: 1%;
+}.t-1p {
+    top: 1%;
+}.height-98 {
+    height: 98%;
+}.width-98 {
+    width: 98%;
+}.pos-absolute {
+    position: absolute;
+}
