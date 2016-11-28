@@ -19,14 +19,21 @@ html,body{
 	display: block;
 	margin: 0 auto;
 	position: relative;
-  text-align: center;
-  top: 150px;
+    text-align: center;
+    top: 150px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+}
+.logo img{
+	width: 200px;
+	height: 100px;
 }
 .input{
 	width: 100%;
 	margin: 0 auto;
 	position: relative;
-	margin-top: 60px;
+	margin-top: 20px;
 	text-align: center;
 }
 .input input{
